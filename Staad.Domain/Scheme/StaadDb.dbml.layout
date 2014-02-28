@@ -1,0 +1,25 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ordesignerObjectsDiagram dslVersion="1.0.0.0" absoluteBounds="0, 0, 11, 8.5" name="StaadDb">
+  <DataContextMoniker Name="/StaadDbDataContext" />
+  <nestedChildShapes>
+    <classShape Id="b691b087-6fe5-4e92-9235-59afa7a98f92" absoluteBounds="0.875, 3.75, 2, 1.7708968098958331">
+      <DataClassMoniker Name="/StaadDbDataContext/tbWord" />
+      <nestedChildShapes>
+        <elementListCompartment Id="4e0c094e-f411-4616-baff-cb41e62f4423" absoluteBounds="0.89, 4.21, 1.9700000000000002, 1.2108968098958333" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="85d717fa-7285-44bc-9a99-ad7ad45b89e8" absoluteBounds="1, 0.5, 2, 1.3862939453125">
+      <DataClassMoniker Name="/StaadDbDataContext/tbWordlist" />
+      <nestedChildShapes>
+        <elementListCompartment Id="3b0762d4-1bd3-4b39-8414-948864a1f9e6" absoluteBounds="1.0150000000000001, 0.96, 1.9700000000000002, 0.8262939453125" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <associationConnector edgePoints="[(1.9375 : 1.8862939453125); (1.9375 : 3.75)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+      <AssociationMoniker Name="/StaadDbDataContext/tbWordlist/tbWordlist_tbWord" />
+      <nodes>
+        <classShapeMoniker Id="85d717fa-7285-44bc-9a99-ad7ad45b89e8" />
+        <classShapeMoniker Id="b691b087-6fe5-4e92-9235-59afa7a98f92" />
+      </nodes>
+    </associationConnector>
+  </nestedChildShapes>
+</ordesignerObjectsDiagram>

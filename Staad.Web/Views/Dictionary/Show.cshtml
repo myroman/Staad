@@ -1,0 +1,65 @@
+﻿@using Staad.Domain.Entities
+@model Staad.Web.Models.DictionaryViewModel
+@{
+  ViewBag.Title = Model.Dictionary.Name;
+}
+<h2 class="header">
+  @Html.ActionLink("My dictionaries", "List", null, new { @class = "" })
+  >> @Model.Dictionary.Name
+</h2>
+<div class="dict">
+  <div class="dict__panel">
+    <div class="dict__panel__add">
+      <a href="javascript:void(0)" data-bind="click: $root.addWord" class="dict__panel__add__word button button_blue">New word</a>
+      <a href="javascript:void(0)" class="dict__panel__add__options button button_blue">&#x25BC;</a>
+    </div>
+    <div class="dict__panel__add-options droplistItems">
+        <a href="javascript:void(0)" class="dict__panel__add-options__add">New word</a> 
+        <a href="javascript:void(0)" class="dict__panel__add-options__import">
+        Import</a>
+    </div>
+    <div class="dict__panel__delete-word">
+        <a href="javascript:void(0)" class="button" 
+        data-bind='click: removeChecked, css: getClassForDeleteBtn'>Delete</a>
+    </div>
+    <div>
+      @Html.ActionLink("Learn", "Setup", "Exercise",
+                new { dictId = Model.Dictionary.Id },
+                new { @class = "button button_blue" })
+    </div>
+    @*TODO: Automatic save every 30 seconds. After every save button should go grey*@
+    <div class="dict__panel__save">
+        <a class="button button_grey" href="javascript:void(0)">Save</a>
+    </div>
+  </div>
+  @Html.Hidden("hdnModel", Model.GetJson())
+  <table class="word__table">
+    <tr class="word__table__header">
+      <th class="word-line__check">
+        <input type="checkbox" />
+      </th>
+      <th class="word-line__original">
+        <div>Original word</div>
+      </th>
+      <th class="word-line__definition">
+        <div>Definition</div>
+      </th>
+      <th class="word-line__example">
+        <div>Example</div>
+      </th>
+    </tr>
+  </table>
+  <div class="word__table__content">
+    <table class="word__table">
+      <tbody data-bind='foreach: words'>
+        <tr class="word-line">
+          @{ Html.RenderPartial("WordRow"); }
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  @{
+    var newWord = new Word { Container = Model.Dictionary };
+    Html.RenderPartial("ShowWordDialog", newWord);
+  }
+</div>

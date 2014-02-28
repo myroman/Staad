@@ -1,0 +1,56 @@
+﻿@using Staad.Domain.Entities.Exercises
+@using Staad.Web.Models;
+@model ExerciseSetupViewModel
+
+<ul id="sortable" class="b-exercises">
+    @{
+        foreach(var exercise in Model.Settings.Exercises)
+        {
+            <li class="b-exercises__item ui-state-default cf">
+                <div class="b-exercises__item__pic exercise__pic @ViewData[exercise.Ability.ToString()]">
+                </div>
+                <div>
+                    <div class="b-exercises__item_name b-caption">@exercise.Name</div>
+                    <div class="b-exercises__item__desc">@exercise.Description</div>
+                </div>
+            </li>
+        }
+    }
+</ul>
+
+<a href="javascript:void(0)" class="b-exercises-add b-caption">
+    <i class="common-pic"></i> 
+    Add exercise
+</a>
+
+<div class="exercises-select" title="Available exercises">
+    <table>
+        <tbody>
+            <tr>
+                @foreach(var group in Model.ExerciseGroups)
+                {
+                    <td>
+                        <div class="exercise__pic @ViewData[group.Key.ToString()]"></div>
+                        <div class="exercises-select__group">@group.Key.ToString()</div>
+                    </td>
+                }
+            </tr>
+            <tr>
+                @foreach(var grouping in Model.ExerciseGroups)
+                {
+                    <td>
+                        @foreach(var exercise in grouping)
+                        {
+                            <div class="exercises-select__block">
+                                <div class="b-caption exercises-select__block_name">@exercise.Name</div>
+                                <div class="exercises-select__block__desc">@exercise.Description</div>
+                            </div>
+                        }
+                    </td>
+                }
+            </tr>
+        </tbody>
+    </table>
+
+    <input type="button" value="Apply" />
+</div>

@@ -1,0 +1,16 @@
+﻿@model Staad.Domain.Entities.Dictionary
+         
+@{
+    ViewBag.Title = "New";
+}
+
+<h2>Create my dictionary</h2>
+
+@using (Html.BeginForm())
+{
+  <span>Name:</span> @Html.TextBoxFor(x => x.Name)
+  <p>
+      <input type="submit" value="Create" class="user-button" />
+      @Html.ValidationMessageFor(x => x.Name)
+  </p>
+}

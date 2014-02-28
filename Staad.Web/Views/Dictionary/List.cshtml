@@ -1,0 +1,35 @@
+﻿@using Staad.Web.Helpers
+@model Staad.Web.Models.DictionaryListViewModel
+@using (Html.BeginDiv("dict-list", "dict-list"))
+{
+  @Html.Hidden("hdnDicts", Model.GetJson())
+
+  <h2 class="header">My dictionaries</h2> 
+  
+  <div class="dict-list__panel">
+    <input type="checkbox" class="dict-list__panel__select-all" />
+    @Html.ActionLink("New Dictionary", "New", "Dictionary", null,
+      new { @class = "dict-list__panel__new button button_blue" })
+    <a href="javascript:(0)" class="dict-list__panel__delete button" 
+       data-bind='click: removeChecked, css: getClassForDeleteBtn'>Delete</a>
+  </div>
+
+  <table class="dict-list__table">
+    <tbody data-bind='foreach: dicts'>
+      <tr class="dict-list__row">
+        <td class="dict-line__check">
+          <input type="checkbox" data-bind='checked: checked' />
+        </td>
+        <td class="dict-line__name">
+            <a data-bind="text: name, attr: {href: url}"></a>
+        </td>
+        <td class="dict-line__count">
+          0 / <span data-bind='text: wordsCount'></span>
+        </td>
+        <td class="dict-line__created">
+          Added: <span data-bind='text: created'></span>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+}

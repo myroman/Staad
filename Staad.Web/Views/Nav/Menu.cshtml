@@ -1,0 +1,8 @@
+﻿@model Staad.Web.Models.NavMenuModel
+
+<div class="menu__items">
+    @Html.ActionLink(Model.SiteHeader, "List", "Dictionary", null, new { @class = "menu__header" })
+</div>
+<div class="menu__user">|
+    <span class="menu__user_login">@Model.CurrentUser</span>
+</div>

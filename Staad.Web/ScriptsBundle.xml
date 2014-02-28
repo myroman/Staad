@@ -1,0 +1,11 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<scripts>
+  <add src="~/Scripts/Staad.Utils.js" />
+  <add src="~/Scripts/Staad.DictRequest.js" />
+  <add src="~/Scripts/Staad.WordDialog.js" />
+  <add src="~/Scripts/Staad.ImportDialog.js" />
+  <add src="~/Scripts/Staad.DictionaryViewModel.js" />
+  <add src="~/Scripts/Staad.DictionaryListViewModel.js" />
+
+  <add src="~/Scripts/Staad.Exercise.Setup.js" />
+</scripts>

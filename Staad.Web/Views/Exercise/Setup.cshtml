@@ -1,0 +1,54 @@
+﻿@using Staad.Web.Models;
+@model ExerciseSetupViewModel
+
+@{
+    ViewBag.Title = "Setup exercises";
+}
+
+<h2>Setup exercises</h2>
+
+<div class="exer-settings">
+@using (Html.BeginForm("Start", "Exercise"))
+{
+    @Html.HiddenFor(x => x.LinkedDictionaryId)
+    @Html.HiddenFor(x => x.WordsInLesson)
+    <div id="accordion">
+        <h3>Main settings</h3>
+        <div class="exer__setting-section">
+            <div class="exer__setting">
+                <div class="exer__setting__head">Words in Lesson</div>
+        
+                <div class="exer__setting__body">
+                    <div class="b-slider"></div>
+                    <span class="exer__settings__words__cur">@Model.WordsInLesson</span>
+                    / <span class="exer__settings__words__max">@Model.AllWords.Count</span>
+                </div>
+            </div>
+
+            <div class="exer__setting">
+                <div class="exer__setting__head">Time limits</div>
+
+                <div class="exer__setting__body">
+                    @Html.RadioButtonFor(x => x.Settings.HaveTimeLimits, true) Have limits
+                    @Html.RadioButtonFor(x => x.Settings.HaveTimeLimits, false) Don't
+                </div>
+            </div>
+        
+        </div>
+        
+        <h3>Exercise types</h3>
+        <div class="exer__setting-section">
+            <div class="exer__setting">
+                <div class="exer__setting__head">Exercises</div>
+                
+                <div class="exer__setting__body">
+                    @{ Html.RenderPartial("ExercisesChoice", Model); }
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="exer__start-lesson">
+        <input type="submit" class="button button_blue" value="Start it" />
+    </div>
+}
+</div>
