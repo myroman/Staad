@@ -7,7 +7,7 @@
   <h2 class="header">My dictionaries</h2> 
   
   <div class="dict-list__panel">
-    <input type="checkbox" class="dict-list__panel__select-all" />
+    <input type="checkbox" class="dict-list__panel__select-all" data-bind='checked: allChecked,click: toggleCheckAll'/>
     @Html.ActionLink("New Dictionary", "New", "Dictionary", null,
       new { @class = "dict-list__panel__new button button_blue" })
     <a href="javascript:(0)" class="dict-list__panel__delete button" 

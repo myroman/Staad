@@ -73,6 +73,13 @@ function DictionaryListViewModel(model) {
       function(resp) {
       });
   };
+  that.allChecked = ko.observable(false);
+  that.toggleCheckAll = function() {
+    $.each(that.dicts(), function (i, v) {
+      v.checked(that.allChecked());
+    });
+    return true;
+  };
 
   that.getClassForDeleteBtn = ko.computed(function() {
     return that.hasSelectedItems() ? 'button_blue' : 'button_grey';
