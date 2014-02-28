@@ -161,8 +161,8 @@ function DictionaryViewModel(model) {
     return res;
   };
 
-  that.removeChecked = function () {
-    var ids = that.getSelected().map(function (x) {
+  that.removeChecked = function() {
+    var ids = that.getSelected().map(function(x) {
       return x.Id;
     });
     request.Post({
@@ -177,6 +177,13 @@ function DictionaryViewModel(model) {
       },
       function(resp) {
       });
+  };
+  that.allWordsChecked = ko.observable(false);
+  that.checkAllWords = function () {
+    $.each(that.words(), function (i, v) {
+      v.checked(that.allWordsChecked());
+    });
+    return true;
   };
   
   that.getClassForDeleteBtn = ko.computed(function() {
