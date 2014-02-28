@@ -15,21 +15,6 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Staad.Domain", "Staad.Domain\Staad.Domain.csproj", "{3FDEF563-5A41-4F66-865A-08C36068EC14}"
 EndProject
 Global
-	GlobalSection(TeamFoundationVersionControl) = preSolution
-		SccNumberOfProjects = 4
-		SccEnterpriseProvider = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
-		SccTeamFoundationServer = https://myroman.visualstudio.com/defaultcollection
-		SccLocalPath0 = .
-		SccProjectUniqueName1 = Staad.Web\\Staad.Web.csproj
-		SccProjectName1 = Staad.Web
-		SccLocalPath1 = Staad.Web
-		SccProjectUniqueName2 = Staad.Tests\\Staad.Tests.csproj
-		SccProjectName2 = Staad.Tests
-		SccLocalPath2 = Staad.Tests
-		SccProjectUniqueName3 = Staad.Domain\\Staad.Domain.csproj
-		SccProjectName3 = Staad.Domain
-		SccLocalPath3 = Staad.Domain
-	EndGlobalSection
 	GlobalSection(TestCaseManagementSettings) = postSolution
 		CategoryFile = Staad.vsmdi
 	EndGlobalSection
