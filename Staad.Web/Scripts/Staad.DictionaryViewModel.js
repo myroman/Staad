@@ -26,16 +26,6 @@ Staad.Utils.WordFactory = (function () {
         Example: ko.observable(m.Example()),
         Checked: ko.observable(m.Checked())
       };
-    },
-    CreatePoco: function (m, dictId) {
-      return {
-        Id: m.id,
-        DictionaryId: dictId,
-        Original: m.Original(),
-        Definition: m.Definition(),
-        Example: m.Example(),
-        Checked: m.Checked()
-      };
     }
   };
 })();
@@ -112,10 +102,7 @@ function DictionaryViewModel(model) {
     }
     wordDlg.Close();
     
-    //  TODO: should be already set  that.dlgWord.DictionaryId = model.Id;
-    var cleanJs = ko.toJS(that.dlgWord);
-    var also = wordFactory.CreatePoco(that.dlgWord, model.Id);
-    saveWordsToServer([cleanJs], [indexOfWord]);
+    saveWordsToServer([ko.toJS(that.dlgWord)], [indexOfWord]);
 
     that.canEdit(false);
     that.dlgWord = null;
