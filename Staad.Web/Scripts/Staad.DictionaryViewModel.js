@@ -3,38 +3,38 @@ Staad.Utils.WordFactory = (function () {
   return {
     CreateObservableFromModel: function (m) {
       return {
-        id: m.Id,
-        dictId: m.DictionaryId,
-        original: ko.observable(m.Original),
-        definition: ko.observable(m.Definition),
-        example: ko.observable(m.Example),
-        checked: ko.observable(false)
+        Id: m.Id,
+        DictionaryId: m.DictionaryId,
+        Original: ko.observable(m.Original),
+        Definition: ko.observable(m.Definition),
+        Example: ko.observable(m.Example),
+        Checked: ko.observable(false)
       };
     },
     CopyObservable: function (m) {
       if (m == null) {
         return {
-          original: ko.observable(''),
-          definition: ko.observable(''),
-          example: ko.observable(''),
-          checked: ko.observable(false)
+          Original: ko.observable(''),
+          Definition: ko.observable(''),
+          Example: ko.observable(''),
+          Checked: ko.observable(false)
         };
       }
       return {
-        original: ko.observable(m.original()),
-        definition: ko.observable(m.definition()),
-        example: ko.observable(m.example()),
-        checked: ko.observable(m.checked())
+        Original: ko.observable(m.Original()),
+        Definition: ko.observable(m.Definition()),
+        Example: ko.observable(m.Example()),
+        Checked: ko.observable(m.Checked())
       };
     },
     CreatePoco: function (m, dictId) {
       return {
         Id: m.id,
         DictionaryId: dictId,
-        Original: m.original(),
-        Definition: m.definition(),
-        Example: m.example(),
-        Checked: m.checked()
+        Original: m.Original(),
+        Definition: m.Definition(),
+        Example: m.Example(),
+        Checked: m.Checked()
       };
     }
   };
@@ -63,15 +63,15 @@ function DictionaryViewModel(model) {
   });
 
   var getWordById = function(id) {
-    var matches = that.words().filter(function(x) { return x.id == id; });
+    var matches = that.words().filter(function(x) { return x.Id == id; });
     if (matches.length == 0) {
-      return { id: 0 };
+      return { Id: 0 };
     }
     return matches[0];
   };
   var getIndexOfWord = function(wordId) {
     for (var i = 0; i < that.words().length; ++i) {
-      if (that.words()[i].id == wordId) {
+      if (that.words()[i].Id == wordId) {
         return i;
       }
     }
@@ -86,7 +86,7 @@ function DictionaryViewModel(model) {
   that.dlgWord = null;
   that.canEdit = ko.observable(false);
   that.editWord = function(it) {
-    currentWordId = it.id;
+    currentWordId = it.Id;
     that.dlgWord = function(found) {
       return wordFactory.CopyObservable(found);
     }(getWordById(currentWordId));
@@ -96,43 +96,53 @@ function DictionaryViewModel(model) {
 
   that.saveWordInDlg = function () {
     var indexOfWord = -1;
+    that.dlgWord.DictionaryId = model.Id;
+    that.dlgWord.Id = 0;
     if (currentWordId != 0) {
       indexOfWord = getIndexOfWord(currentWordId);
 
       var tableWordRef = getWordById(currentWordId);
-      tableWordRef.original(that.dlgWord.original());
-      tableWordRef.definition(that.dlgWord.definition());
-      tableWordRef.example(that.dlgWord.example());
-      that.dlgWord.id = currentWordId;
+      tableWordRef.Original(that.dlgWord.Original());
+      tableWordRef.Definition(that.dlgWord.Definition());
+      tableWordRef.Example(that.dlgWord.Example());
+      that.dlgWord.Id = currentWordId;
     } else {
       that.words.push(wordFactory.CopyObservable(that.dlgWord));
       indexOfWord = that.words().length - 1;
     }
     wordDlg.Close();
-    saveWordsToServer([wordFactory.CreatePoco(that.dlgWord, model.Id)], [indexOfWord]);
+    
+    //  TODO: should be already set  that.dlgWord.DictionaryId = model.Id;
+    var cleanJs = ko.toJS(that.dlgWord);
+    var also = wordFactory.CreatePoco(that.dlgWord, model.Id);
+    saveWordsToServer([cleanJs], [indexOfWord]);
 
     that.canEdit(false);
     that.dlgWord = null;
   };
 
   // requests to handler
-  function saveWordsToServer (wordsToSave, theirIndexes) {
+  function saveWordsToServer(wordsToSave, theirIndexes) {
     request.Post({
-      entity: 'word',
-      action: 'save',
-      words: JSON.stringify(wordsToSave),
-      theirIndexes: JSON.stringify(theirIndexes)
-    },
-      function (data) {
+        entity: 'word',
+        action: 'save',
+        words: JSON.stringify(wordsToSave),
+        theirIndexes: JSON.stringify(theirIndexes)
+      },
+      function(data) {
+        resetErr();
         var i, ind;
         for (i = 0; i < data.length; ++i) {
           ind = data[i].index;
           if (ind >= that.words().length) continue;
 
-          that.words()[ind].id = data[i].Id;
+          that.words()[ind].Id = data[i].Id;
         }
       },
-      function (resp) {
+      function(resp) {
+        if (resp && typeof resp.responseText == 'string') {
+          that.currentError(resp.responseText);
+        }
       });
   }
 
@@ -148,23 +158,18 @@ function DictionaryViewModel(model) {
   that.hasSelectedItems = ko.computed(function() {
     var i;
     for (i = 0; i < this.words().length; ++i) {
-      if (this.words()[i].checked()) {
+      if (this.words()[i].Checked()) {
         return true;
       }
     }
     return false;
   }, that);
 
-  that.getSelected = function(transform) {
+  that.getSelected = function() {
     var res = [];
     $.each(that.words(), function(i, v) {
-      if (v.checked()) {
-
-        var pocoWord = wordFactory.CreatePoco(v, model.Id);
-        if (transform) {
-          pocoWord = transform(pocoWord);
-        }
-        res.push(pocoWord);
+      if (v.Checked()) {
+        res.push(ko.toJS(v));
       }
     });
     return res;
@@ -179,19 +184,23 @@ function DictionaryViewModel(model) {
         action: 'delete',
         ids: JSON.stringify(ids)
       },
-      function(resp) {
+      function (resp) {
+        resetErr();
         that.words.remove(function(x) {
-          return x.checked() && $.inArray(x.id, resp) != -1;
+          return x.Checked() && $.inArray(x.Id, resp) != -1;
         });
       },
       function(resp) {
+        if (typeof resp == 'string') {
+          that.currentError(resp);
+        }
       });
   };
   
   that.allWordsChecked = ko.observable(false);
   that.checkAllWords = function () {
     $.each(that.words(), function (i, v) {
-      v.checked(that.allWordsChecked());
+      v.Checked(that.allWordsChecked());
     });
     return true;
   };
@@ -199,6 +208,11 @@ function DictionaryViewModel(model) {
   that.getClassForDeleteBtn = ko.computed(function() {
     return that.hasSelectedItems() ? 'button_blue' : 'button_grey';
   });
+
+  that.currentError = ko.observable('');
+  function resetErr() {
+    that.currentError('');
+  }
 }
 
 $(document).ready(function () {

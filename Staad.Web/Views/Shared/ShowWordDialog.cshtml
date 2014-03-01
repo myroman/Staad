@@ -8,15 +8,15 @@
  
     @Html.LabelFor(x => x.Original, "Word: ")
     <br />
-    @Html.TextBoxFor(x => x.Original, new { @class = "b-wddialog__original", data_bind = "value: dlgWord.original" })
+    @Html.TextBoxFor(x => x.Original, new { @class = "b-wddialog__original", data_bind = "value: dlgWord.Original" })
     <br />
     @Html.LabelFor(x => x.Definition, "Definition: ")
     <br />
-    @Html.TextAreaFor(x => x.Definition, new { @class = "b-wddialog__definition", data_bind = "value: dlgWord.definition" })
+    @Html.TextAreaFor(x => x.Definition, new { @class = "b-wddialog__definition", data_bind = "value: dlgWord.Definition" })
     <br />
     @Html.LabelFor(x => x.Definition, "Example: ")
     <br />
-    @Html.TextAreaFor(x => x.Example, new { @class = "b-wddialog__example", data_bind = "value: dlgWord.example" })
+    @Html.TextAreaFor(x => x.Example, new { @class = "b-wddialog__example", data_bind = "value: dlgWord.Example" })
     <br />
 
     <input type="button" value="Save" class="b-wddialog__save" id="saveWord" data-bind='click: saveWordInDlg'/>

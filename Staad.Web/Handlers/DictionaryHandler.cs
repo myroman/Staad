@@ -56,8 +56,10 @@ namespace Staad.Web.Handlers
 
                 context.Response.StatusCode = (int)HttpStatusCode.OK;
             }
-            catch (InvalidOperationException)
+            catch (Exception exc)
             {
+                context.Response.Clear();
+                context.Response.Write(exc.Message);
                 context.Response.StatusCode = (int)HttpStatusCode.InternalServerError;
             }
         }
@@ -118,6 +120,7 @@ namespace Staad.Web.Handlers
                     });
             }
 
+            throw new Exception("Something bad happened. See logs.");
             MakeResponse(context, responseList);
         }
 

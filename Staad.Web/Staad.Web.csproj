@@ -112,12 +112,16 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Content\dict.css" />
-    <Content Include="Content\exercise-select.css" />
-    <Content Include="Content\exercise.css" />
+    <Content Include="Content\ajax-loader.gif" />
+    <Content Include="Content\css\dict-table.css" />
+    <Content Include="Content\css\dict.css" />
+    <Content Include="Content\css\exercise-select.css" />
+    <Content Include="Content\css\exercise.css" />
+    <Content Include="Content\css\interface.css" />
+    <Content Include="Content\css\msg\knob_buttons_sprite.png" />
+    <Content Include="Content\css\msg\msg_error.png" />
+    <Content Include="Content\css\Site.css" />
     <Content Include="Content\exercises-list.png" />
-    <Content Include="Content\interface.css" />
-    <Content Include="Content\dict-table.css" />
     <Content Include="Content\lesson.png" />
     <Content Include="Content\themes\base\images\ui-bg_flat_0_aaaaaa_40x100.png" />
     <Content Include="Content\themes\base\images\ui-bg_flat_75_ffffff_40x100.png" />
@@ -184,7 +188,6 @@
     <Content Include="Web.Release.config">
       <DependentUpon>Web.config</DependentUpon>
     </Content>
-    <Content Include="Content\Site.css" />
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Account\ChangePassword.cshtml" />
     <Content Include="Views\Account\ChangePasswordSuccess.cshtml" />

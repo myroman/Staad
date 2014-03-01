@@ -3,6 +3,9 @@
 @{
   ViewBag.Title = Model.Dictionary.Name;
 }
+<div data-bind='if: currentError'>
+  <div class="msg_error" data-bind='text: currentError'></div>
+</div>
 <h2 class="header">
   @Html.ActionLink("My dictionaries", "List", null, new { @class = "" })
   >> @Model.Dictionary.Name
@@ -63,3 +66,6 @@
     Html.RenderPartial("ShowWordDialog", newWord);
   }
 </div>
+<hr />
+<h2>Debug</h2>
+<pre data-bind='text: ko.toJSON($root, null, 2)'></pre>
