@@ -123,31 +123,22 @@ function DictionaryViewModel(model) {
 
   // requests to handler
   function saveWordsToServer(wordsToSave, theirIndexes) {
-    $.ajax('/DictionaryHandler.axd', {
-      data: {
-        entity: 'word',
-        action: 'save',
-        words: JSON.stringify(wordsToSave),
-        theirIndexes: JSON.stringify(theirIndexes)
-      },
-      dataType: 'json',
-      type: 'post',
-      success: function(data) {
-        setErr();
-        var i, ind;
-        for (i = 0; i < data.length; ++i) {
-          ind = data[i].index;
-          if (ind >= that.words().length) continue;
+    var onSuccess = function(data) {
+      setErr();
+      var i, ind;
+      for (i = 0; i < data.length; ++i) {
+        ind = data[i].index;
+        if (ind >= that.words().length) continue;
 
-          that.words()[ind].Id = data[i].Id;
-        }
-      },
-      error: function(resp) {
-        if (resp && typeof resp.responseText == 'string') {
-          setErr(resp.responseText);
-        }
+        that.words()[ind].Id = data[i].Id;
       }
-    });
+    };
+    doRequest({
+      entity: 'word',
+      action: 'save',
+      words: JSON.stringify(wordsToSave),
+      theirIndexes: JSON.stringify(theirIndexes)
+    }, onSuccess);
   }
 
   // add
@@ -183,28 +174,37 @@ function DictionaryViewModel(model) {
     var ids = that.getSelected().map(function(x) {
       return x.Id;
     });
-    
+
+    var onSuccess = function(resp) {
+      setErr();
+      that.words.remove(function(x) {
+        return x.Checked() && $.inArray(x.Id, resp) != -1;
+      });
+    };
+
+    doRequest({
+      entity: 'word',
+      action: 'delete',
+      ids: JSON.stringify(ids)
+    }, onSuccess);
+  };
+  
+  function doRequest(data, successCallback) {
     $.ajax('/DictionaryHandler.axd', {
-      data: {
-        entity: 'word',
-        action: 'delete',
-        ids: JSON.stringify(ids)
-      },
+      data: data,
       dataType: 'json',
       type: 'post',
-      success: function(resp) {
+      success: function (resp) {
         setErr();
-        that.words.remove(function(x) {
-          return x.Checked() && $.inArray(x.Id, resp) != -1;
-        });
+        if (successCallback) successCallback(resp);
       },
-      error: function(resp) {
+      error: function (resp) {
         if (resp && typeof resp.responseText == 'string') {
           setErr(resp.responseText);
         }
       }
     });
-  };
+  }
   
   that.allWordsChecked = ko.observable(false);
   that.checkAllWords = function () {
