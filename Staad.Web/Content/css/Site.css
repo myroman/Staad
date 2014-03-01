@@ -3,6 +3,7 @@
 @import url(interface.css);
 @import url(exercise.css);
 @import url(exercise-select.css);
+
 /* HTML elements across the site */
 body {
     font-size: .85em;
@@ -90,6 +91,7 @@ div.msg_info, div.msg_success, div.msg_warning, div.msg_error, div.msg_validatio
   padding: 15px 10px 15px 50px;
   background-repeat: no-repeat;
   background-position: 10px center;
+  background-size: 28px 28px;
   display: none;
 }
 .msg_info {
