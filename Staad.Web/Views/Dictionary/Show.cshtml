@@ -3,9 +3,8 @@
 @{
   ViewBag.Title = Model.Dictionary.Name;
 }
-<div data-bind='if: currentError'>
-  <div class="msg_error" data-bind='text: currentError'></div>
-</div>
+<div class="msg_error" data-bind='text: currentError'></div>
+
 <h2 class="header">
   @Html.ActionLink("My dictionaries", "List", null, new { @class = "" })
   >> @Model.Dictionary.Name

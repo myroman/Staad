@@ -130,7 +130,7 @@ function DictionaryViewModel(model) {
         theirIndexes: JSON.stringify(theirIndexes)
       },
       function(data) {
-        resetErr();
+        setErr();
         var i, ind;
         for (i = 0; i < data.length; ++i) {
           ind = data[i].index;
@@ -141,7 +141,7 @@ function DictionaryViewModel(model) {
       },
       function(resp) {
         if (resp && typeof resp.responseText == 'string') {
-          that.currentError(resp.responseText);
+          setErr(resp.responseText);
         }
       });
   }
@@ -185,14 +185,14 @@ function DictionaryViewModel(model) {
         ids: JSON.stringify(ids)
       },
       function (resp) {
-        resetErr();
+        setErr();
         that.words.remove(function(x) {
           return x.Checked() && $.inArray(x.Id, resp) != -1;
         });
       },
       function(resp) {
-        if (typeof resp == 'string') {
-          that.currentError(resp);
+        if (resp && typeof resp.responseText == 'string') {
+          setErr(resp.responseText);
         }
       });
   };
@@ -210,8 +210,15 @@ function DictionaryViewModel(model) {
   });
 
   that.currentError = ko.observable('');
-  function resetErr() {
-    that.currentError('');
+  function setErr(s) {
+    var errorElem = $('div.msg_error');
+    if (s) {
+      that.currentError(s);
+      errorElem.show();
+    } else {
+      that.currentError('');
+      errorElem.hide();
+    }
   }
 }
 
