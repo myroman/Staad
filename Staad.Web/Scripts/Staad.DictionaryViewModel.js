@@ -98,6 +98,11 @@ function DictionaryViewModel(model) {
     var indexOfWord = -1;
     if (currentWordId != 0) {
       indexOfWord = getIndexOfWord(currentWordId);
+
+      var tableWordRef = getWordById(currentWordId);
+      tableWordRef.original(that.dlgWord.original());
+      tableWordRef.definition(that.dlgWord.definition());
+      tableWordRef.example(that.dlgWord.example());
       that.dlgWord.id = currentWordId;
     } else {
       that.words.push(wordFactory.CopyObservable(that.dlgWord));
