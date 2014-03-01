@@ -34,7 +34,6 @@ Staad.Utils.WordFactory = (function () {
 function DictionaryViewModel(model) {
   var that = this,
       wordDlg = new Staad.WordDialog(),
-      request = new Staad.DictRequest(),
       currentWordId = 0,
       onWordDlgClose = function() {
         that.canEdit(false);
@@ -85,7 +84,7 @@ function DictionaryViewModel(model) {
   };
 
   that.saveWordInDlg = function () {
-    var indexOfWord = -1;
+    var indexOfWord;
     that.dlgWord.DictionaryId = model.Id;
     that.dlgWord.Id = 0;
     if (currentWordId != 0) {
