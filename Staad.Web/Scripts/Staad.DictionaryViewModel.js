@@ -185,7 +185,7 @@ function DictionaryViewModel(model) {
       },
       function(resp) {
         that.words.remove(function(x) {
-          return x.checked();
+          return x.checked() && $.inArray(x.id, resp) != -1;
         });
       },
       function(resp) {

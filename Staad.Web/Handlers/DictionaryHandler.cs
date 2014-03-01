@@ -123,9 +123,12 @@ namespace Staad.Web.Handlers
 
         private void DeleteWords(HttpContext context)
         {
-            var jsonArr = context.Request["ids"];
-            var list = ParseIntArray(jsonArr);
-            dictionaryService.DeleteWords(list);
+            var idsRaw = context.Request["ids"];
+            var idsList = ParseIntArray(idsRaw);
+            dictionaryService.DeleteWords(idsList);
+            context.Response.Clear();
+            context.Response.ContentType = "text/plain";
+            context.Response.Write(javaScriptSerializer.Serialize(idsList));
         }
 
         public bool IsReusable
