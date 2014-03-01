@@ -1,0 +1,113 @@
+﻿@import url(dict-table.css);
+@import url(dict.css);
+@import url(interface.css);
+@import url(exercise.css);
+@import url(exercise-select.css);
+/* HTML elements across the site */
+body {
+    font-size: .85em;
+    font-family: "Trebuchet MS", Verdana, Helvetica, Sans-Serif;
+    margin: 0;
+    padding: 0;
+    color: #696969;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+a:hover {
+  text-decoration: underline;
+}
+/* Common technics */
+.cf:after {
+  clear: both;
+  content: ".";
+  display: block;
+  font-size: 0;
+  height: 0;
+  visibility: hidden;
+}
+.plh {
+  display: none;
+}
+/*  Menu   */
+.menu {
+  background-color: #ddd;
+  padding: .6em;
+  font-size: 16px;
+  font-family: 'Segoe UI', Verdana, Tahoma, sans-serif;
+}
+
+.menu__items {
+  float: left;
+}
+
+.menu__user {
+  display: inline-block;
+  float: right;
+
+  width: 170px;
+}
+
+.menu__user_login {
+  
+}
+
+/* Content site markup*/
+.content {
+  padding: 0.6em;
+  background-color: #F9F9F9;
+}
+
+.content__leftCol {
+  width: 20%;
+  height: 1px;
+  float: left;
+}
+
+.content__centerCol {
+  width: 60%;
+  float: left;
+
+  border: 1px solid #DDDDDD;
+  padding-left: 0.5em;
+  padding-right: 0.5em;
+
+  background-color: white;
+}
+
+.field-validation-error {
+  color: red;
+}
+.validation-summary-errors {
+  color: red;
+}
+      /*ERROR MESSAGES*/
+.msg_info, .msg_success, .msg_warning, .msg_error, .msg_validation {
+border: 1px solid;
+margin: 10px 0px;
+padding:15px 10px 15px 50px;
+background-repeat: no-repeat;
+background-position: 10px center;
+}
+.msg_info {
+color: #00529B;
+background-color: #BDE5F8;
+/*background-image: url('info.png');*/
+}
+.msg_success {
+color: #4F8A10;
+background-color: #DFF2BF;
+/*background-image:url('success.png');*/
+}
+.msg_warning {
+color: #9F6000;
+background-color: #FEEFB3;
+/*background-image: url('warning.png');*/
+}
+.msg_error {
+color: #D8000C;
+background-color: #FFBABA;
+background-image: url('msg/msg_error.png');
+}

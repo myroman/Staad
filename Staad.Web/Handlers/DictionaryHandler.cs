@@ -120,7 +120,6 @@ namespace Staad.Web.Handlers
                     });
             }
 
-            throw new Exception("Something bad happened. See logs.");
             MakeResponse(context, responseList);
         }
 

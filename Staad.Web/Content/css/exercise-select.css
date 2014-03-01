@@ -1,0 +1,32 @@
+﻿.exercises-select {
+  display: none; 
+}
+.exercises-select__group {
+  
+}
+.exercises-select__block {
+  background-color: #E9F6FE;
+  border: 1px solid #BEDEF2;
+
+  padding: 4px;
+  margin: 6px 3px;
+
+  cursor: pointer;
+}
+.exercises-select__block:hover {
+  background-color: #BEDEF2;
+}
+.exercises-select__block_name {
+  
+}
+.exercises-select__block__desc {
+  font-size: 11px;
+}
+
+.exercises-select td {
+  text-align: center;
+  vertical-align: top;
+}
+.exercises-select td div.exercise__pic {
+  display: inline-block;
+}
