@@ -34,7 +34,7 @@ namespace Staad.Web.Handlers
             return strArray.Select(s => Convert.ToInt32(s)).ToArray();
         }
 
-        private IEnumerable<Word> Parse(string jsonArr)
+        private IEnumerable<Word> ParseWords(string jsonArr)
         {
             return new JavaScriptSerializer().Deserialize<List<Word>>(jsonArr);
         }
@@ -95,18 +95,24 @@ namespace Staad.Web.Handlers
         private void SaveWords(HttpContext context)
         {
             var jsonArr = context.Request["words"];
-            var indexesRaw = context.Request["theirIndexes"]; //check
-            var list = Parse(jsonArr).ToList();
-            dictionaryService.SaveWords(list);
+            var words = ParseWords(jsonArr).ToList();
+            var indexesRaw = context.Request["theirIndexes"]; // TODO: check
+            var indexesInArray = ParseIntArray(indexesRaw);
+            
+            if (words.Count() != indexesInArray.Length)
+            {
+                throw new InvalidOperationException("Number of words and their indexes must be equal");
+            }
+
+            dictionaryService.SaveWords(words);
 
             var responseList = new List<object>();
-            var index = ParseIntArray(indexesRaw);
-            foreach (var i in index)
+            foreach (var selObj in words.Select((word, i) => new { word, i }))
             {
                 responseList.Add(new
                     {
-                        index = i,
-                        list[i].Id
+                        index = indexesInArray[selObj.i],
+                        selObj.word.Id
                     });
             }
 

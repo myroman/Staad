@@ -69,6 +69,15 @@ function DictionaryViewModel(model) {
     }
     return matches[0];
   };
+  var getIndexOfWord = function(wordId) {
+    for (var i = 0; i < that.words().length; ++i) {
+      if (that.words()[i].id == wordId) {
+        return i;
+      }
+    }
+    return -1;
+  };
+
   that.getWordToEdit = function() {
     return getWordById(currentWordId);
   };
@@ -85,38 +94,37 @@ function DictionaryViewModel(model) {
     wordDlg.Show();
   };
 
-  that.saveWordInDlg = function() {
+  that.saveWordInDlg = function () {
+    var indexOfWord = -1;
     if (currentWordId != 0) {
-      var editedWord = getWordById(currentWordId);
-      editedWord.original(that.dlgWord.original());
-      editedWord.definition(that.dlgWord.definition());
-      editedWord.example(that.dlgWord.example());
+      indexOfWord = getIndexOfWord(currentWordId);
+      that.dlgWord.id = currentWordId;
     } else {
       that.words.push(wordFactory.CopyObservable(that.dlgWord));
+      indexOfWord = that.words().length - 1;
     }
     wordDlg.Close();
-    saveWordsToServer([wordFactory.CreatePoco(that.dlgWord, model.Id)]);
+    saveWordsToServer([wordFactory.CreatePoco(that.dlgWord, model.Id)], [indexOfWord]);
 
     that.canEdit(false);
     that.dlgWord = null;
   };
 
-  // requests to hansdler
-
+  // requests to handler
   function saveWordsToServer (wordsToSave, theirIndexes) {
     request.Post({
       entity: 'word',
       action: 'save',
       words: JSON.stringify(wordsToSave),
-      theirIndexes: theirIndexes
+      theirIndexes: JSON.stringify(theirIndexes)
     },
       function (data) {
         var i, ind;
-        for (i = 0; i < data.respItems.length; ++i) {
-          ind = data.respItems[i].index;
-          if (ind >= that.words().length) return;
+        for (i = 0; i < data.length; ++i) {
+          ind = data[i].index;
+          if (ind >= that.words().length) continue;
 
-          that.words()[ind].id = data.respItems[i].id;
+          that.words()[ind].id = data[i].Id;
         }
       },
       function (resp) {
@@ -178,6 +186,7 @@ function DictionaryViewModel(model) {
       function(resp) {
       });
   };
+  
   that.allWordsChecked = ko.observable(false);
   that.checkAllWords = function () {
     $.each(that.words(), function (i, v) {

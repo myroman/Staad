@@ -30,6 +30,7 @@ Staad.DictRequest = function (refreshUrl) {
   var post = function(data, onSuccess, onError) {
     $.ajax(url, {
       data: data,
+      dataType: 'json',
       type: 'post',
       success: onSuccess,
       error: onError
