@@ -74,9 +74,11 @@ namespace Staad.Web.Handlers
 
         private void DeleteDictionaries(HttpContext context)
         {
-            var jsonArr = context.Request["ids"];
-            var list = ParseIntArray(jsonArr);
-            dictionaryService.DeleteDictionaries(list);
+            var idsRaw = context.Request["ids"];
+            var ids = ParseIntArray(idsRaw);
+            dictionaryService.DeleteDictionaries(ids);
+
+            MakeResponse(context, ids);
         }
 
         private void ProcessWords(HttpContext context)
@@ -116,9 +118,7 @@ namespace Staad.Web.Handlers
                     });
             }
 
-            context.Response.Clear();
-            context.Response.ContentType = "text/plain";
-            context.Response.Write(javaScriptSerializer.Serialize(responseList));
+            MakeResponse(context, responseList);
         }
 
         private void DeleteWords(HttpContext context)
@@ -126,9 +126,15 @@ namespace Staad.Web.Handlers
             var idsRaw = context.Request["ids"];
             var idsList = ParseIntArray(idsRaw);
             dictionaryService.DeleteWords(idsList);
+
+            MakeResponse(context, idsList);
+        }
+
+        private void MakeResponse(HttpContext context, object responseObject)
+        {
             context.Response.Clear();
             context.Response.ContentType = "text/plain";
-            context.Response.Write(javaScriptSerializer.Serialize(idsList));
+            context.Response.Write(javaScriptSerializer.Serialize(responseObject));
         }
 
         public bool IsReusable
