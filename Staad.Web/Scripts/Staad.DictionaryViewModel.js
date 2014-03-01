@@ -136,10 +136,6 @@ function DictionaryViewModel(model) {
       });
   }
 
-  function deleteWordsFromSrv(ids) {
-    
-  }
-
   // add
   that.addWord = function() {
     currentWordId = 0;
