@@ -204,8 +204,9 @@ function DictionaryViewModel(model) {
 $(document).ready(function () {
   var hdnData = $('.dict input[type=hidden]');
   if (hdnData.length == 0) return;
-  if (typeof hdnData.val())
+  if (typeof hdnData.val() === 'string') {
     var model = $.parseJSON(hdnData.val());
-  var viewModel = new DictionaryViewModel(model);
-  ko.applyBindings(viewModel);
+    var viewModel = new DictionaryViewModel(model);
+    ko.applyBindings(viewModel);
+  }
 });
