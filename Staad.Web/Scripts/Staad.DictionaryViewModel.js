@@ -123,13 +123,16 @@ function DictionaryViewModel(model) {
 
   // requests to handler
   function saveWordsToServer(wordsToSave, theirIndexes) {
-    request.Post({
+    $.ajax('/DictionaryHandler.axd', {
+      data: {
         entity: 'word',
         action: 'save',
         words: JSON.stringify(wordsToSave),
         theirIndexes: JSON.stringify(theirIndexes)
       },
-      function(data) {
+      dataType: 'json',
+      type: 'post',
+      success: function(data) {
         setErr();
         var i, ind;
         for (i = 0; i < data.length; ++i) {
@@ -139,11 +142,12 @@ function DictionaryViewModel(model) {
           that.words()[ind].Id = data[i].Id;
         }
       },
-      function(resp) {
+      error: function(resp) {
         if (resp && typeof resp.responseText == 'string') {
           setErr(resp.responseText);
         }
-      });
+      }
+    });
   }
 
   // add
@@ -179,22 +183,27 @@ function DictionaryViewModel(model) {
     var ids = that.getSelected().map(function(x) {
       return x.Id;
     });
-    request.Post({
+    
+    $.ajax('/DictionaryHandler.axd', {
+      data: {
         entity: 'word',
         action: 'delete',
         ids: JSON.stringify(ids)
       },
-      function (resp) {
+      dataType: 'json',
+      type: 'post',
+      success: function(resp) {
         setErr();
         that.words.remove(function(x) {
           return x.Checked() && $.inArray(x.Id, resp) != -1;
         });
       },
-      function(resp) {
+      error: function(resp) {
         if (resp && typeof resp.responseText == 'string') {
           setErr(resp.responseText);
         }
-      });
+      }
+    });
   };
   
   that.allWordsChecked = ko.observable(false);
