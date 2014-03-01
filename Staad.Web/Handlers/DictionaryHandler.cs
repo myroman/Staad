@@ -8,6 +8,7 @@ using System.Web.Script.Serialization;
 
 using Staad.Domain.Abstract;
 using Staad.Domain.Entities;
+using Staad.Web.Models;
 
 namespace Staad.Web.Handlers
 {
@@ -15,11 +16,15 @@ namespace Staad.Web.Handlers
     {
         private readonly IDictionaryService dictionaryService;
 
-        private JavaScriptSerializer javaScriptSerializer;
+        private readonly IDictionaryRepository dictionaryRepository;
+
+        private readonly JavaScriptSerializer javaScriptSerializer;
 
         public DictionaryHandler()
         {
             dictionaryService = DependencyResolver.Current.GetService<IDictionaryService>();
+            dictionaryRepository = DependencyResolver.Current.GetService<IDictionaryRepository>();
+            javaScriptSerializer = new JavaScriptSerializer();
         }
 
         private int[] ParseIntArray(string jsonArr)
@@ -28,7 +33,7 @@ namespace Staad.Web.Handlers
             {
                 return new int[0];
             }
-            javaScriptSerializer = new JavaScriptSerializer();
+            
             var strArray = javaScriptSerializer.Deserialize<string[]>(jsonArr);
 
             return strArray.Select(s => Convert.ToInt32(s)).ToArray();
@@ -93,7 +98,30 @@ namespace Staad.Web.Handlers
                 case "delete":
                     DeleteWords(context);
                     break;
+                case "loadmore":
+                    FetchMoreWords(context);
+                    break;
             }
+        }
+
+        private void FetchMoreWords(HttpContext context)
+        {
+            var offsetRaw = context.Request["offset"];
+            int offset;
+            if (!int.TryParse(offsetRaw, out offset))
+            {
+                throw new InvalidOperationException("You should provide 'offset' parameter");
+            }
+            var dictIdRaw = context.Request["dictId"];
+            int dictId;
+            if (!int.TryParse(dictIdRaw, out dictId))
+            {
+                throw new InvalidOperationException("You should provide 'dictId' parameter");
+            }
+
+            var dictionary = dictionaryRepository.Read(dictId);
+            var query = dictionary.Words.Skip(offset).Select(x => new WordViewModel(x));
+            MakeResponse(context, query.ToArray());
         }
 
         private void SaveWords(HttpContext context)

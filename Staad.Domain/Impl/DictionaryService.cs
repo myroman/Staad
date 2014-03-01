@@ -13,7 +13,7 @@ namespace Staad.Domain.Impl
         private readonly IWordRepository wordRepository;
 
         public DictionaryService(
-            IDictionaryRepository dictionaryRepository, 
+            IDictionaryRepository dictionaryRepository,
             IWordRepository wordRepository)
         {
             this.dictionaryRepository = dictionaryRepository;

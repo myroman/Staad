@@ -4,7 +4,6 @@ Staad.Utils.WordFactory = (function () {
     CreateObservableFromModel: function (m) {
       return {
         Id: m.Id,
-        DictionaryId: m.DictionaryId,
         Original: ko.observable(m.Original),
         Definition: ko.observable(m.Definition),
         Example: ko.observable(m.Example),
@@ -51,6 +50,12 @@ function DictionaryViewModel(model) {
     that.words.push(x);
   });
 
+  getExtraItems();
+
+  // *** Definitions ***
+  function getCurrentDictionaryId() {
+    return model.Id;
+  }
   var getWordById = function(id) {
     var matches = that.words().filter(function(x) { return x.Id == id; });
     if (matches.length == 0) {
@@ -85,7 +90,7 @@ function DictionaryViewModel(model) {
 
   that.saveWordInDlg = function () {
     var indexOfWord;
-    that.dlgWord.DictionaryId = model.Id;
+    that.dlgWord.DictionaryId = getCurrentDictionaryId();
     that.dlgWord.Id = 0;
     if (currentWordId != 0) {
       indexOfWord = getIndexOfWord(currentWordId);
@@ -214,6 +219,25 @@ function DictionaryViewModel(model) {
       that.currentError('');
       errorElem.hide();
     }
+  }
+  
+  function getExtraItems() {
+    
+    var onGetNewItems = function (resp) {
+      if (typeof resp != 'object') return;
+      $.each(resp, function (i, v) {
+        var x = wordFactory.CreateObservableFromModel(v);
+        v.DictionaryId = getCurrentDictionaryId();
+        that.words.push(x);
+      });
+    };
+    
+    doRequest({
+      entity: 'word',
+      action: 'loadmore',
+      offset: that.words().length,
+      dictId: getCurrentDictionaryId()
+    }, onGetNewItems);
   }
 }
 

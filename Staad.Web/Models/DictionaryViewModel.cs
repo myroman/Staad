@@ -27,8 +27,7 @@ namespace Staad.Web.Models
             var dictObj = new
                 {
                     Dictionary.Id,
-                    WordsToRenderFirst = Dictionary.Words.Take(NumberOfWordsToRenderFirst),
-                    OtherWordsIds = Dictionary.Words.Select(x => x.Id).Skip(NumberOfWordsToRenderFirst)
+                    WordsToRenderFirst = Dictionary.Words.Take(NumberOfWordsToRenderFirst).Select(x => new WordViewModel(x))
                 };
 
             return javaScriptSerializer.Serialize(dictObj);

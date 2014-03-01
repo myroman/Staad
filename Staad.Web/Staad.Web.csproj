@@ -109,6 +109,7 @@
     <Compile Include="Models\ExerciseSetupViewModel.cs" />
     <Compile Include="Models\NavMenuModel.cs" />
     <Compile Include="Models\DictionaryViewModel.cs" />
+    <Compile Include="Models\WordViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
