@@ -57,7 +57,7 @@ function DictionaryViewModel(model) {
   });
 
   that.words = ko.observableArray();
-  $.each(model.Words, function(i, v) {
+  $.each(model.WordsToRenderFirst, function (i, v) {
     var x = wordFactory.CreateObservableFromModel(v);
     that.words.push(x);
   });
