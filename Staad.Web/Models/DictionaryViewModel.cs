@@ -19,15 +19,17 @@ namespace Staad.Web.Models
 
         private int NumberOfWordsToRenderFirst
         {
-            get { return 5; }
+            get { return 20; }
         }
 
         public string GetJson()
         {
+            var wordsToRender = Dictionary.Words.Take(NumberOfWordsToRenderFirst).Select(x => new WordViewModel(x));
             var dictObj = new
                 {
                     Dictionary.Id,
-                    WordsToRenderFirst = Dictionary.Words.Take(NumberOfWordsToRenderFirst).Select(x => new WordViewModel(x))
+                    WordsToRenderFirst = wordsToRender,
+                    NeedMoreWords = Dictionary.Words.Count > NumberOfWordsToRenderFirst
                 };
 
             return javaScriptSerializer.Serialize(dictObj);

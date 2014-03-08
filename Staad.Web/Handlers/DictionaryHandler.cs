@@ -163,7 +163,7 @@ namespace Staad.Web.Handlers
         private void MakeResponse(HttpContext context, object responseObject)
         {
             context.Response.Clear();
-            context.Response.ContentType = "text/plain";
+            context.Response.ContentType = "application/json";
             context.Response.Write(javaScriptSerializer.Serialize(responseObject));
         }
 

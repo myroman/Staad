@@ -50,7 +50,9 @@ function DictionaryViewModel(model) {
     that.words.push(x);
   });
 
-  getExtraItems();
+  if (model.NeedMoreWords === true) {
+    getExtraItems();
+  }
 
   // *** Definitions ***
   function getCurrentDictionaryId() {
