@@ -4,8 +4,9 @@
   <add src="~/Scripts/Staad.DictRequest.js" />
   <add src="~/Scripts/Staad.WordDialog.js" />
   <add src="~/Scripts/Staad.ImportDialog.js" />
-  <add src="~/Scripts/Staad.DictionaryViewModel.js" />
-  <add src="~/Scripts/Staad.DictionaryListViewModel.js" />
+  <add src="~/Scripts/ViewModels/Staad.Dictionary.js" />
+  <add src="~/Scripts/ViewModels/Staad.DictionaryList.js" />
+  <add src="~/Scripts/ViewModels/Staad.Exercise.js" />
 
   <add src="~/Scripts/Staad.Exercise.Setup.js" />
 </scripts>

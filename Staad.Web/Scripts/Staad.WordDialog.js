@@ -24,8 +24,6 @@ Staad.WordDialog = function () {
     txtDefinitionDlg = dlgModal.find('.b-wddialog__definition');
     txtExample = dlgModal.find('.b-wddialog__example');
     validationSummary = dlgModal.find('.validation-summary-errors');
-    
-    //btnSaveWordDlg.click(saveWord);
   };
 
   //
@@ -46,38 +44,6 @@ Staad.WordDialog = function () {
   var close = function () {
     validationSummary.text('');
     dlgModal.dialog('close');
-  };
-
-  //
-  var saveWord = function () {
-
-
-    /*
-    $.ajax({
-    type: 'post',
-    data: $.extend(currWord, {
-    action: 'save',
-    dataType: 'json'
-    }),
-    url: '/WordHandler.axd',
-    success: function (details) {
-    details = $.parseJSON(details);
-        
-    if (onWordUpdateCallback) {
-    if (currWord.id == 0) {
-    currWord.id = details.WordId;
-    }
-    onWordUpdateCallback(currWord);
-    }
-    dlgModal.dialog('close');
-    currWord = null;
-    },
-    error: function (why) {
-    why = $.parseJSON(why);
-    validationSummary.text(why.ErrorMsg);
-    }
-    });*/
-
   };
 
   return {

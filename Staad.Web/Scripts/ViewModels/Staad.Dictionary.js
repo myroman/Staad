@@ -40,7 +40,7 @@ function DictionaryViewModel(model) {
       wordFactory = Staad.Utils.WordFactory;
 
   wordDlg.Init({
-    dialogModalSelector: '#dialog-modal',
+    dialogModalSelector: '#edit-word-dlg',
     onCloseCallback: onWordDlgClose
   });
 
@@ -241,14 +241,20 @@ function DictionaryViewModel(model) {
       dictId: getCurrentDictionaryId()
     }, onGetNewItems);
   }
+
+  that.showExerciseSetup = function() {
+    var vm = new Exercise({
+      dictId: getCurrentDictionaryId()
+    });
+    ko.applyBindings(vm);
+  };
 }
 
 $(document).ready(function () {
   var hdnData = $('.dict input[type=hidden]');
   if (hdnData.length == 0) return;
   if (typeof hdnData.val() === 'string') {
-    var model = $.parseJSON(hdnData.val());
-    var viewModel = new DictionaryViewModel(model);
-    ko.applyBindings(viewModel);
+    var vm = new DictionaryViewModel($.parseJSON(hdnData.val()));
+    ko.applyBindings(vm);
   }
 });
