@@ -1,6 +1,6 @@
 ﻿@model Staad.Domain.Entities.Word
 
-<div id="dialog-modal" title="Add new word" data-bind='if: canEdit'>
+<div id="edit-word-dlg" title="Add new word" data-bind='if: canEdit'>
     @Html.HiddenFor(x => x.Container.Id)
     @Html.HiddenFor(x => x.Id, new { @class = "b-wddialog__id" })
 

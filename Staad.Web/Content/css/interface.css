@@ -49,15 +49,15 @@
 .header {
   color: #2581A2;
 }
-#dialog-modal {
+#edit-word-dlg {
   font-size: 12px;
   padding: 6px 4px;
   display: none;
 }
-#dialog-modal input[type=text] {
+#edit-word-dlg input[type=text] {
   width: 300px;
 }
-#dialog-modal textarea {
+#edit-word-dlg textarea {
   width: 300px;
   height: 4.4em;
   line-height: 1;
