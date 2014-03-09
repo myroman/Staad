@@ -1,6 +1,7 @@
 ﻿using System.Linq;
 using System.Web.Script.Serialization;
 
+using Staad.Domain.Abstract;
 using Staad.Domain.Entities;
 
 namespace Staad.Web.Models
@@ -11,25 +12,23 @@ namespace Staad.Web.Models
 
         private readonly JavaScriptSerializer javaScriptSerializer;
 
-        public DictionaryViewModel(Dictionary dictionary)
+        private readonly IDictionaryViewSettings dictionaryViewSettings;
+
+        public DictionaryViewModel(Dictionary dictionary, IDictionaryViewSettings dictionaryViewSettings)
         {
             Dictionary = dictionary;
+            this.dictionaryViewSettings = dictionaryViewSettings;
             javaScriptSerializer = new JavaScriptSerializer();
-        }
-
-        private int NumberOfWordsToRenderFirst
-        {
-            get { return 20; }
         }
 
         public string GetJson()
         {
-            var wordsToRender = Dictionary.Words.Take(NumberOfWordsToRenderFirst).Select(x => new WordViewModel(x));
+            var wordsToRender = Dictionary.Words.Take(dictionaryViewSettings.NumberOfWordsToRenderFirst).Select(x => new WordViewModel(x));
             var dictObj = new
                 {
                     Dictionary.Id,
                     WordsToRenderFirst = wordsToRender,
-                    NeedMoreWords = Dictionary.Words.Count > NumberOfWordsToRenderFirst
+                    NeedMoreWords = Dictionary.Words.Count > dictionaryViewSettings.NumberOfWordsToRenderFirst
                 };
 
             return javaScriptSerializer.Serialize(dictObj);

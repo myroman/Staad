@@ -31,6 +31,7 @@ namespace Staad.Domain.Impl
 
             builder.RegisterType<SettingsReader>()
                 .As<IExerciseSettings>()
+                .As<IDictionaryViewSettings>()
                 .SingleInstance();
         }
     }

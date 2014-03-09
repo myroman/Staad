@@ -10,10 +10,14 @@ namespace Staad.Web.Controllers
     public class DictionaryController : Controller
     {
         private readonly IDictionaryRepository dictionaryRepository;
+        private readonly IDictionaryViewSettings dictionaryViewSettings;
 
-        public DictionaryController(IDictionaryRepository dictionaryRepository)
+        public DictionaryController(
+            IDictionaryRepository dictionaryRepository, 
+            IDictionaryViewSettings dictionaryViewSettings)
         {
             this.dictionaryRepository = dictionaryRepository;
+            this.dictionaryViewSettings = dictionaryViewSettings;
         }
 
         public ActionResult List()
@@ -46,7 +50,7 @@ namespace Staad.Web.Controllers
             var dictionary = dictionaryRepository.Read(id);
             if (dictionary != null)
             {
-                return View(new DictionaryViewModel(dictionary));
+                return View(new DictionaryViewModel(dictionary, dictionaryViewSettings));
             }
             return RedirectToAction("List");
         }

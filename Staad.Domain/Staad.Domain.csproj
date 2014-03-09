@@ -59,6 +59,7 @@
   <ItemGroup>
     <Compile Include="Abstract\IDictionaryService.cs" />
     <Compile Include="Abstract\IDictionaryRepository.cs" />
+    <Compile Include="Abstract\IDictionaryViewSettings.cs" />
     <Compile Include="Abstract\IExerciseSettings.cs" />
     <Compile Include="Abstract\IWordRepository.cs" />
     <Compile Include="Entities\DomainObject.cs" />
