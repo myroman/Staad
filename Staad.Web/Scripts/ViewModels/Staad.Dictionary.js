@@ -241,13 +241,6 @@ function DictionaryViewModel(model) {
       dictId: getCurrentDictionaryId()
     }, onGetNewItems);
   }
-
-  that.showExerciseSetup = function() {
-    var vm = new Exercise({
-      dictId: getCurrentDictionaryId()
-    });
-    ko.applyBindings(vm);
-  };
 }
 
 $(document).ready(function () {

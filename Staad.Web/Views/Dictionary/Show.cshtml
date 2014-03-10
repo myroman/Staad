@@ -29,12 +29,6 @@
                 new { dictId = Model.Dictionary.Id },
                 new { @class = "button button_blue" })
     </div>
-    
-    <div class="dict__panel__learn">
-        <a href="javascript:void(0)" class="button button_blue" data-bind='click: showExerciseSetup'>
-            Start exercise!
-        </a>
-    </div>
   </div>
 
   @Html.Hidden("hdnModel", Model.GetJson())

@@ -122,8 +122,8 @@
     <Content Include="Content\css\msg\knob_buttons_sprite.png" />
     <Content Include="Content\css\msg\msg_error.png" />
     <Content Include="Content\css\Site.css" />
-    <Content Include="Content\exercises-list.png" />
-    <Content Include="Content\lesson.png" />
+    <Content Include="Content\css\exercises-list.png" />
+    <Content Include="Content\css\lesson.png" />
     <Content Include="Content\themes\base\images\ui-bg_flat_0_aaaaaa_40x100.png" />
     <Content Include="Content\themes\base\images\ui-bg_flat_75_ffffff_40x100.png" />
     <Content Include="Content\themes\base\images\ui-bg_glass_55_fbf9ee_1x400.png" />
