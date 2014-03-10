@@ -28,9 +28,9 @@ namespace Staad.Web.Controllers
             return View(exerciseSetupViewModel);
         }
 
-        public ActionResult Setup(int dictId)
+        public ActionResult Setup(int id)
         {
-            var dict = dictionaryRepository.Read(dictId);
+            var dict = dictionaryRepository.Read(id);
             if (dict != null)
             {
                 var model = new ExerciseSetupViewModel(dict);
