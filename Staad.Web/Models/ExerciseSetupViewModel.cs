@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Web.Script.Serialization;
 
 using Staad.Domain.Entities;
 using Staad.Domain.Entities.Exercises;
@@ -20,9 +21,7 @@ namespace Staad.Web.Models
         public ExerciseSetupViewModel()
         {
             AllWords = new List<Word>();
-            Settings = new ExerciseSettings();
-
-            Settings.WordsInLesson = 0;
+            Settings = new ExerciseSettings { WordsInLesson = 0 };
         }
 
         public ExerciseSetupViewModel(Dictionary dict)
@@ -40,6 +39,16 @@ namespace Staad.Web.Models
         public int WordsInLesson
         {
             get { return Settings.WordsInLesson; }
+        }
+
+        public string GetJson()
+        {
+            var viewModel = new
+                {
+                    WordsInLesson,
+                    WordsMaxCount = AllWords.Count()
+                };
+            return new JavaScriptSerializer().Serialize(viewModel);
         }
     }
 }

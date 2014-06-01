@@ -17,43 +17,70 @@ Staad.Exercise.Setup = function () {
       hdnWordsCountCur = container.find(params.hdnwordsCountCur_slc);
       btnShowSelectExerDlg = container.find(params.btnShowSelectExerDlg_slc);
       exerSelectDialog = container.find(params.exerSelectDialog_slc);
-
-      slider.slider({
-        value: wordsCountCur.text(),
-        max: wordsCountMax.text(),
-        slide: function (ev, ui) {
-          wordsCountCur.text(ui.value);
-          hdnWordsCountCur.val(ui.value);
-        }
-      });
-
-      //container is accordion
-      $('#accordion').accordion({
-        collapsible: true,
-        animate: false,
-        active: 1
-      });
-
-      $(".b-exercises").sortable({
-        placeholder: "ui-state-highlight"
-      });
-      $(".b-exercises").disableSelection();
-
-      btnShowSelectExerDlg.click(function () {
-        exerSelectDialog.dialog({
-          width: 500,
-          height: 500,
-          modal: true,
-          resizable: false
-        });
-      });
-      btnShowSelectExerDlg.click();
     }
   };
 };
 
+function ExerciseSetup(model) {
+  var that = this,
+      container = $('.exer-settings'),
+      exerSelectDialog = container.find('.exercises-select');
+      
+  that.showAddExerciseDlg = function() {
+    exerSelectDialog.dialog({
+      width: 500,
+      height: 500,
+      modal: true,
+      resizable: false
+    });
+  };
+  
+  $('#accordion').accordion({
+    collapsible: true,
+    animate: false,
+    active: 0
+  });
+
+  $('.b-exercises').sortable({
+    placeholder: 'ui-state-highlight'
+  });
+  $('.b-exercises').disableSelection();
+
+  ko.bindingHandlers.slider = {
+    init: function (element, valueAccessor, allBindingsAccessor) {
+      var options = allBindingsAccessor().sliderOptions || {};
+      $(element).slider(options);
+      
+      ko.utils.registerEventHandler(element, 'slidechange', function (event, ui) {
+        var observable = valueAccessor();
+        observable(ui.value);
+      });
+      ko.utils.domNodeDisposal.addDisposeCallback(element, function () {
+        $(element).slider('destroy');
+      });
+      ko.utils.registerEventHandler(element, 'slide', function (event, ui) {
+        var observable = valueAccessor();
+        observable(ui.value);
+      });
+    },
+    update: function (element, valueAccessor) {
+      var value = ko.utils.unwrapObservable(valueAccessor());
+      if (isNaN(value)) value = 0;
+      $(element).slider('value', value);
+
+    }
+  };
+  that.wordsCountCurrent = ko.observable(model.WordsInLesson);
+  that.wordsCountMax = model.WordsMaxCount;
+  
+}
+
 (function ($) {
-  $(document).ready(function() {
+  $(document).ready(function () {
+    var model = $('#hdnModel').val();
+    var vm = new ExerciseSetup($.parseJSON(model));
+    ko.applyBindings(vm);
+
     var control = new Staad.Exercise.Setup();
     control.Init({
       containerSelector: '.exer-settings',
@@ -64,5 +91,7 @@ Staad.Exercise.Setup = function () {
       btnShowSelectExerDlg_slc: 'a.b-exercises-add',
       exerSelectDialog_slc: '.exercises-select'
     });
+    
+
   });
 })(jQuery);

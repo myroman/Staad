@@ -10,6 +10,7 @@
 <div class="exer-settings">
 @using (Html.BeginForm("Start", "Exercise"))
 {
+  @Html.Hidden("hdnModel", Model.GetJson())
     @Html.HiddenFor(x => x.LinkedDictionaryId)
     @Html.HiddenFor(x => x.WordsInLesson)
     <div id="accordion">
@@ -19,9 +20,9 @@
                 <div class="exer__setting__head">Words in Lesson</div>
         
                 <div class="exer__setting__body">
-                    <div class="b-slider"></div>
-                    <span class="exer__settings__words__cur">@Model.WordsInLesson</span>
-                    / <span class="exer__settings__words__max">@Model.AllWords.Count</span>
+                    <div class="b-slider" data-bind='slider: wordsCountCurrent, sliderOptions: {min: 1, max: wordsCountMax}'></div>
+                    <span data-bind='text: wordsCountCurrent'></span>
+                    / <span data-bind='text: wordsCountMax'></span>
                 </div>
             </div>
 

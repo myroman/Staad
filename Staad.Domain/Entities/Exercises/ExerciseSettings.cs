@@ -7,7 +7,7 @@ namespace Staad.Domain.Entities.Exercises
         public ExerciseSettings()
         {
             Exercises = new List<Exercise>();
-            WordsInLesson = 10;
+            WordsInLesson = 6;
         }
 
         public int WordsInLesson { get; set; }
