@@ -50,5 +50,17 @@ namespace Staad.Web.Models
                 };
             return new JavaScriptSerializer().Serialize(viewModel);
         }
+
+        public string GetWordsJson()
+        {
+            var viewModel = new
+            {
+                WordsInLesson,
+                AllWords = AllWords
+            };
+            return new JavaScriptSerializer().Serialize(viewModel);
+        }
+
+
     }
 }

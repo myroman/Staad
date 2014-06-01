@@ -77,8 +77,12 @@ function ExerciseSetup(model) {
 
 (function ($) {
   $(document).ready(function () {
-    var model = $('#hdnModel').val();
-    var vm = new ExerciseSetup($.parseJSON(model));
+    var hidden = $('.exer-settings #hdnModel');
+    if (hidden.length == 0) {
+      return;
+    }
+    var model = hidden.val(),
+        vm = new ExerciseSetup($.parseJSON(model));
     ko.applyBindings(vm);
 
     var control = new Staad.Exercise.Setup();

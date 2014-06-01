@@ -3,3 +3,15 @@
     ViewBag.Title = "Exercise";
 }
 
+<div class='b-exr'>
+    @Html.Hidden("hdnModel", Model.GetWordsJson())
+    <span class='b-exr-fam-msg'>Get familiar with the words</span>
+    
+    <div class='b-exr-word' data-bind='if: inited'>
+        <span class='original' data-bind='text: visWord.original'></span>
+        <span class='definition' data-bind='text: visWord.definition'></span>
+
+        <input type="button" value="Show me a definition!" data-bind='click: showDefinition'/>
+        <input type="button" value="Next word" data-bind='click: showNextWord'/>
+    </div>
+</div>

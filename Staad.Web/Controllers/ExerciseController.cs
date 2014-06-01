@@ -6,9 +6,6 @@ using Staad.Web.Models;
 
 namespace Staad.Web.Controllers
 {
-    using System.Collections.Generic;
-
-    using Staad.Domain.Entities.Exercises;
 
     public class ExerciseController : Controller
     {
@@ -43,6 +40,16 @@ namespace Staad.Web.Controllers
                 }
 
                 return View(model);
+            }
+            return RedirectToAction("List", "Dictionary");
+        }
+
+        public ActionResult Start(int id)
+        {
+            var dict = dictionaryRepository.Read(id);
+            if (dict != null)
+            {
+                return View(new ExerciseSetupViewModel(dict));
             }
             return RedirectToAction("List", "Dictionary");
         }
