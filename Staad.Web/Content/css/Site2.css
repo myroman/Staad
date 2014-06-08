@@ -1,0 +1,10 @@
+﻿@import url(dict-table.css);
+/* Bootstrap fixes */
+.jumbotron_my .btn-sm {
+  padding: 5px 10px;
+  font-size: 12px;
+}
+
+input[type="checkbox"] {
+  margin: 0;
+}

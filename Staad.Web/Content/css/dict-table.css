@@ -1,12 +1,21 @@
-﻿.dict-list {
-  
+﻿div.dict-list {
+  text-align: left;
 }
+
+.dict-list input[type=checkbox] {
+ 
+}
+
 .dict-list__panel {
-  padding: 0 0 10px 3px;
+  padding: 0 0 10px 7px;
 }
 
 .dict-list__panel__select-all {
+  vertical-align: middle;
+  margin-right: 10px !important;
+  display: inline-block;
 }
+
 .dict-list__panel__new {  
 }
 .dict-list__panel__delete {  
@@ -18,7 +27,7 @@
 }
 
 .dict-list__row {
-  background-color: #EFF7DF;
+  /*background-color: #EFF7DF;*/
   border-bottom: 1px dashed #DDDDDD;
   border-top: 1px solid #BBBBBB;
 }
@@ -33,6 +42,7 @@
 
 .dict-line__name {
   width: 250px;
+  text-align: left;
 }
 .dict__name-box {
   

@@ -1,20 +1,19 @@
-﻿@using Staad.Web.Helpers
-@model Staad.Web.Models.DictionaryListViewModel
-@using (Html.BeginDiv("dict-list", "dict-list"))
-{
+﻿@model Staad.Web.Models.DictionaryListViewModel
+  <div class='dict-list'>
   @Html.Hidden("hdnDicts", Model.GetJson())
 
-  <h2 class="header">My dictionaries</h2> 
+  <h2>My dictionaries</h2> 
   
   <div class="dict-list__panel">
-    <input type="checkbox" class="dict-list__panel__select-all" data-bind='checked: allChecked,click: toggleCheckAll'/>
-    @Html.ActionLink("New Dictionary", "New", "Dictionary", null,
-      new { @class = "dict-list__panel__new button button_blue" })
-    <a href="javascript:(0)" class="dict-list__panel__delete button" 
-       data-bind='click: removeChecked, css: getClassForDeleteBtn'>Delete</a>
+    <input type="checkbox" class="dict-list__panel__select-all" data-bind='checked: allChecked,click: toggleCheckAll' />
+     @Html.ActionLink("New Dictionary", "New", "Dictionary", null,
+      new { @class = "dict-list__panel__new btn btn-sm btn-primary" })
+    <button class="btn btn-primary btn-sm dict-list__panel__delete" 
+       data-bind='click: removeChecked, css: getClassForDeleteBtn'>Delete</button>
+       
   </div>
 
-  <table class="dict-list__table">
+  <table class="table table-striped table-hover dict-list__table">
     <tbody data-bind='foreach: dicts'>
       <tr class="dict-list__row">
         <td class="dict-line__check">
@@ -32,4 +31,5 @@
       </tr>
     </tbody>
   </table>
-}
+  
+  </div>
