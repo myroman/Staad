@@ -1,10 +1,41 @@
 ﻿@import url(dict-table.css);
+@import url(dict.css);
 /* Bootstrap fixes */
 .jumbotron_my .btn-sm {
   padding: 5px 10px;
   font-size: 12px;
 }
+.jumbotron_my.jumbotron_wide {
+  width: 910px;
+  text-align: left;
+}
 
-input[type="checkbox"] {
+.container input[type="checkbox"] {
   margin: 0;
+}
+
+.container a {
+  text-decoration: none;
+  color: inherit;
+}
+
+.container a:hover {
+  text-decoration: underline;
+}
+
+a.btn:hover {
+  text-decoration: none;
+}
+
+/* Common technics */
+.cf:after {
+  clear: both;
+  content: ".";
+  display: block;
+  font-size: 0;
+  height: 0;
+  visibility: hidden;
+}
+.plh {
+  display: none;
 }

@@ -67,6 +67,7 @@
   font-size: 11px;
   color: black;
   width: 755px;
+  margin-bottom: 0;
 }
 
 .word__table tr:first-child td {

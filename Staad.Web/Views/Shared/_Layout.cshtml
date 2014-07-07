@@ -3,9 +3,9 @@
 <head>
   <title>@ViewBag.Title</title>
     
-  <link rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css" />
-  <link rel='stylesheet' href='http://bootswatch.com/amelia/bootstrap.min.css' />
-    <link href="http://getbootstrap.com/examples/jumbotron-narrow/jumbotron-narrow.css" rel="stylesheet" />
+  <link href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css" rel="stylesheet" />
+  <link href='http://bootswatch.com/amelia/bootstrap.min.css' rel='stylesheet' />
+  <link href="http://getbootstrap.com/examples/jumbotron-narrow/jumbotron-narrow.css" rel="stylesheet" />
   <link href="@Url.Content("~/Content/css/Site2.css")" rel="stylesheet"/> 
 </head>
 <body>
@@ -15,10 +15,8 @@
           <div class="menu cf">
               @{ Html.RenderAction("Menu", "Nav"); }
           </div>
-
-          <div class="jumbotron jumbotron_my">
-            @RenderBody()
-          </div>
+          
+          @RenderSection("MainBox")
 
           <div id="footer"></div>
         </div>

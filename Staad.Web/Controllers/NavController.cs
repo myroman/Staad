@@ -11,7 +11,7 @@ namespace Staad.Web.Controllers
             var model = new NavMenuModel
             {
                 CurrentUser = "myroman",
-                SiteHeader = "Learning English with Staad!"
+                SiteHeader = "Dictionaries"
             };
             return PartialView(model);
         }
